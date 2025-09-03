@@ -31,11 +31,11 @@ function update(strnig $entidade, array $dados, array $crietrio = []) : string
         foreach($criterio as $expressao){
             $instrucao .= ' ' . implode(' ', $expressao);
         }
-
-        return $instrucao;
-
     }
-
+   
+    return $instrucao;
 }
+
+
 
 ?>
