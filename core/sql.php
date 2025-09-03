@@ -10,10 +10,10 @@ function insert (string $entidade, array $dados){
     $instrucao .= " ({$campos})";
     $instrucao .= " VALUES ({$valores})";
 
-    return instrucao;
+    return $instrucao;
 }
 
-function update(strnig $entidade, array $dados, array $crietrio = []) : string 
+function update(string $entidade, array $dados, array $crietrio = []) : string 
 {
 
     $instrucao = "UPDATE {$entidade}";
@@ -36,6 +36,43 @@ function update(strnig $entidade, array $dados, array $crietrio = []) : string
     return $instrucao;
 }
 
+function delete (string $entidade, array $criterio = []) : string 
+{
 
+    $instrucao = "DELETE {$entidade}";
+
+    if(!empty($criterio)){
+        $instrucao .= ' WHERE ';
+
+        foreach($criterio as $expressao){
+            $instrucao .= ' ' . implode(' ', $expressao);
+        }
+    }
+
+    return $instrucao;
+
+}
+
+function select (string $entidade, array $campos, array $criterios = [], string $ordem = null) : string
+{
+
+    $instrucao = " SELECT " . implode(', ', $campos);
+    $instrucao .= " FROM {$entidade}";
+
+    if(!empty($criterio)){
+        $instrucao .= " WHERE ";
+
+        foreach ($criterio as $expressao){
+            $instrucao .= ' ' . implode(' ', $exspressao);
+        }
+    }
+
+    if(!empty($ordem)){
+        $instrucao .= "ORDER BY $ordem";
+    }
+
+    return $instrucao;
+
+}
 
 ?>
