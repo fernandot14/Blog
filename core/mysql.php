@@ -15,7 +15,7 @@ function insere(string $entidade, array $dados) : bool
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
-    eval('mysqli_stmt_bind_param($stmt, \'' . implode('', $tipo) . '\',' 
+    eval('mysqli_stmt_bind_param($stmt, \'' . implode('', $tipo) . '\',$' 
          . implode(', $', array_keys($dados)) . ');');
 
     mysqli_stmt_execute($stmt);
@@ -151,10 +151,10 @@ function buscar(string $entidade, array $campos = ['*'], array $criterio = [], s
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
-    if (isset($tipo)) {
+    if (isset($tipo) && isset($campos_criterio)) {
         $comando  = 'mysqli_stmt_bind_param($stmt, ';
-        $comando .= '\'' . implode('', $tipo) . '\', ';
-        $comando .= '$' . implode(', $', $campos_criterio);
+        $comando .= "'" . implode('', $tipo) . "'";
+        $comando .= ', $' . implode(', $', $campos_criterio);
         $comando .= ');';
         eval($comando);
     }
