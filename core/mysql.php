@@ -61,11 +61,13 @@ function atualiza(string $entidade, array $dados, array $criterio = []) : bool
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
+    echo '<br>' . $instrucao;
+
     if (isset($tipo)) {
         $comando  = 'mysqli_stmt_bind_param($stmt, ';
-        $comando .= '\'' . implode('', $tipo) . '\', ';
-        $comando .= '$' . implode(', $', array_keys($dados)) . ', ';
-        $comando .= '$' . implode(', $', $campos_criterio);
+        $comando .= "'" . implode('', $tipo) . "'";
+        $comando .= ', $' . implode(', $', array_keys($dados));
+        $comando .= ', $' . implode(', $', $campos_criterio);
         $comando .= ');';
         eval($comando);
     }
@@ -85,7 +87,6 @@ function deleta(string $entidade, array $criterio = []) : bool
 {
     $retorno = false;
 
-    $tipo = [];
     $coringa_criterio = [];
 
     foreach ($criterio as $expressao) {
@@ -107,8 +108,8 @@ function deleta(string $entidade, array $criterio = []) : bool
 
     if (isset($tipo)) {
         $comando  = 'mysqli_stmt_bind_param($stmt, ';
-        $comando .= '\'' . implode('', $tipo) . '\', ';
-        $comando .= '$' . implode(', $', $campos_criterio);
+        $comando .= "'" . implode('', $tipo) . "'";
+        $comando .= ', $' . implode(', $', $campos_criterio);
         $comando .= ');';
         eval($comando);
     }

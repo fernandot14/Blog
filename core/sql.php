@@ -13,7 +13,7 @@ function insert (string $entidade, array $dados){
     return $instrucao;
 }
 
-function update(string $entidade, array $dados, array $crietrio = []) : string 
+function update(string $entidade, array $dados, array $criterio = []) : string 
 {
 
     $instrucao = "UPDATE {$entidade}";
